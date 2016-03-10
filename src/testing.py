@@ -112,22 +112,23 @@ print "Probando add_int_array"
 print "----------------------"
 print "  " 
 
-a = C.c_int(10)
-b = C.c_int(-4)
+a = (C.c_int * 3)(10,5,2)
+b = (C.c_int * 3)(1,-5,3)
 c = C.c_int()
-n = C.c_int(1)
+n = C.c_int(3)
 try:
     math.add_int_array.argtypes = [C.c_void_p, C.c_void_p, C.c_void_p,C.c_int]
     math.add_int_array(C.byref(a),C.byref(b),C.byref(c),n)
-    
-    if c.value ==6:
+
+    if (c[1].value, c[2].value, c[3].value)==(11,0,5):
         print "Paso el test"
     else:
-        print "No paso el test"
+        print "No paso el test: c=",c.value
 except:
     e=sys.exc_info()
     print "No paso el test, revisar esta funcion (python)"     
     print e
+
 
 
 """
